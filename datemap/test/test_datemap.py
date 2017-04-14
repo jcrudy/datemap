@@ -62,7 +62,6 @@ class TestDateMap(object):
         self.y2004 = (d(2004,1,1),d(2005,1,1))
         self.y2005 = (d(2005,1,1),d(2006,1,1))
         self.y2006 = (d(2006,1,1),d(2007,1,1))
-        self.maxDiff = None
 
     def tearDown(self):
         pass
