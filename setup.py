@@ -7,5 +7,5 @@ setup(name='datemap',
       author_email='jcrudy@gmail.com',
       url='https://github.com/jcrudy/datemap',
       packages=find_packages(),
-      requires=['interval>=1.0.0']
+      install_requires=['interval>=1.0.0']
      )
