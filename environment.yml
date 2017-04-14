@@ -1,0 +1,6 @@
+name: datemapdev
+dependencies:
+    - python=2.7.12
+    - nose
+    - pip:
+        - interval==1.0.0
