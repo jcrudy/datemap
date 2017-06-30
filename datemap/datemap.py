@@ -98,6 +98,8 @@ class DateMap(object):
     
     def __and__(self, other):
         return self.__class__(self.intervals & other.intervals)
+        
+            
     
     def __sub__(self, other):
         return self.__class__(self.intervals - other.intervals)
@@ -120,7 +122,7 @@ class DateMap(object):
         current_upper = self.intervals[0].upper_bound
         current_lower = self.intervals[0].lower_bound
         result = []
-        for interval in self.intervals[1:]:
+        for interval in self.intervals.intervals[1:]:
             if (interval.lower_bound - current_upper).days > max_gap:
                 result.append((current_lower, current_upper))
                 current_lower = interval.lower_bound
@@ -171,7 +173,7 @@ class DateMap(object):
     @property
     def period(self):
         total = 0
-        for intr in self.intervals:
+        for intr in self.intervals.intervals:
             total += (intr.upper_bound - intr.lower_bound).days
         return total
     
@@ -182,7 +184,7 @@ class DateMap(object):
         if date not in self:
             raise ValueError
         result = 0
-        for intr in self.intervals:
+        for intr in self.intervals.intervals:
             if date < intr.lower_bound:
                 break
             result += (min(intr.upper_bound,date) - intr.lower_bound).days
@@ -210,7 +212,7 @@ class DateMap(object):
         if day < 0:
             day = day % period
         remaining = day
-        for intr in self.intervals:
+        for intr in self.intervals.intervals:
             result = intr.lower_bound
             duration = (intr.upper_bound - intr.lower_bound).days
             if remaining < duration:
