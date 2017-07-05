@@ -113,6 +113,28 @@ class DateMap(object):
         else:
             return NotImplemented
     
+    def days_between(self, lower, upper, lower_closed, upper_closed):
+        if not lower_closed:
+            lower += datetime.timedelta(days=1)
+        if not upper_closed:
+            upper -= datetime.timedelta(days=1)
+        result = 0
+        for intrvl in self.intervals.intervals:
+            # Get inclusive bounds
+            lower_bound = intrvl.lower_bound
+            if not intrvl.lower_closed:
+                lower_bound += datetime.timedelta(days=1)
+            upper_bound = intrvl.upper_bound
+            if not intrvl.upper_closed:
+                upper_bound -= datetime.timedelta(days=1)
+            
+            if upper_bound < lower:
+                continue
+            elif lower_bound > upper:
+                break
+            result += (min(upper, upper_bound) - max(lower, lower_bound)).days
+        return result
+    
     def split(self, max_gap):
         '''
         Split into multiple datemaps on any gap larger than max_gap.
