@@ -132,7 +132,7 @@ class DateMap(object):
                 continue
             elif lower_bound > upper:
                 break
-            result += (min(upper, upper_bound) - max(lower, lower_bound)).days
+            result += (min(upper, upper_bound) - max(lower, lower_bound)).days + 1
         return result
     
     def split(self, max_gap):

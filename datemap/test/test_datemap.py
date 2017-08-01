@@ -178,6 +178,20 @@ class TestDateMap(object):
         assert_not_equal(FenceSitter(),dm)
         assert_not_equal(dm,FenceSitter())
         
+    def test_days_between(self):
+        dm = DateMap.from_tuples([self.y2001,self.y2003])
+        assert_equal(dm.days_between(d(2001,12,31), d(2003,1,2), True, True), 3)
+        assert_equal(dm.days_between(d(2001,12,31), d(2003,1,2), True, False), 2)
+        assert_equal(dm.days_between(d(2001,12,31), d(2003,1,2), False, True), 2)
+        assert_equal(dm.days_between(d(2001,12,31), d(2003,1,2), False, False), 1)
+        assert_equal(dm.days_between(d(2001,11,29), d(2001,12,5), False, False), 5)
+        assert_equal(dm.days_between(d(2001,11,29), d(2001,12,5), True, False), 6)
+        assert_equal(dm.days_between(d(2001,11,29), d(2001,12,5), False, True), 6)
+        assert_equal(dm.days_between(d(2001,11,29), d(2001,12,5), True, True), 7)
+        dm.intervals.intervals[0].upper_closed = True
+        assert_equal(dm.days_between(d(2001,12,31), d(2003,1,2), True, True), 4)
+        dm.intervals.intervals[1].lower_closed = False
+        assert_equal(dm.days_between(d(2001,12,31), d(2003,1,2), True, True), 3)
         
 if __name__ == '__main__':
     import sys
